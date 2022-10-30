@@ -1,0 +1,17 @@
+---
+title: "assignment_b1"
+author: "HaoxiangLei"
+date: "2022-10-30"
+output: github_document
+---
+
+## Exercise 1: Make a Function
+
+
+
+## Exercise 2: Document your Function
+
+## Exercise 3: Include examples
+
+## Exercise 4: Test the Function
+
