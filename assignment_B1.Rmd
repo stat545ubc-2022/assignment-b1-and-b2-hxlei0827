@@ -5,13 +5,68 @@ date: "2022-10-30"
 output: github_document
 ---
 
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
 ## Exercise 1: Make a Function
+```{r}
+library(datateachr)
+library(tidyverse)
+library(testthat)
+library(dplyr)
+library(digest)
+```
 
-
+## Exercise 1: Make a Function
+```{r}
+pick_n <- function(data, n){
+  #data <- arrange({{varible}})
+  stopifnot(is.numeric(n))
+  stopifnot(n <= nrow(data))
+  result <- data[0:n,]
+  list(result)
+}
+```
 
 ## Exercise 2: Document your Function
+```{r}
+#' @details the function is aimed to pick up the first n rows of the table
+#' @param data is the data table we will focus on
+#' @param n is the number of the rows we will use
+#' @return the new table with n rows
+
+```
+
 
 ## Exercise 3: Include examples
+```{r}
+# for example: we would like get the first 100 rows of the data
+pick_n(cancer_sample,  100)
+```
 
-## Exercise 4: Test the Function
+```{r}
+# Since the n is bigger than the number of rows
+pick_n(cancer_sample, 1500000)
+```
+## Exercise 4: Test
+```{r}
+# it checked whether the head of two table are the same
+test_that("output the first n rows", {
+    expect_equal(head(pick_n(cancer_sample,10)[[1]]), head(cancer_sample[0:10,]))
+})
+```
+
+```{r}
+# it checked the length of the two table
+test_that("output the first n rows", {
+    expect_equal(nrow(pick_n(cancer_sample,20)[[1]]), 20)
+})
+```
+```{r}
+# it checked the function by checking the length of the two table
+test_that("output the first n rows", {
+    expect_equal(nrow(pick_n(cancer_sample,100)[[1]]), 100)
+})
+```
 
