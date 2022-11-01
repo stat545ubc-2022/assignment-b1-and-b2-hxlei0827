@@ -31,7 +31,7 @@ pick_n_smallest <- function(data, col_label, n){
 
 ## Exercise 2: Document your Function
 ```{r}
-#' @details the function is aimed to pick up the first n rows of the table
+#' @details the function is aimed to pick up the first n rows of arranged table based on one of the varible in table
 #' @param data is the data table we will focus on
 #' @param col_label is the varible inside the data we will sort.
 #' @param n is the number of the rows we will use
@@ -42,7 +42,7 @@ pick_n_smallest <- function(data, col_label, n){
 
 ## Exercise 3: Include examples
 ```{r}
-# for example: we would like get the first 100 rows of the data
+# for example: we would like get the first 100 rows of the data sorted BY radius_mean
 pick_n_smallest(cancer_sample, col_label = radius_mean, 100)
 ```
 
