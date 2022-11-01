@@ -31,6 +31,7 @@ pick_n_smallest <- function(data, col_label, n){
 
 ## Exercise 2: Document your Function
 ```{r}
+#' Select the n smallest data according to a varible in the table
 #' @details the function is aimed to pick up the first n rows of arranged table based on one of the varible in table
 #' @param data is the data table we will focus on
 #' @param col_label is the varible inside the data we will sort.
