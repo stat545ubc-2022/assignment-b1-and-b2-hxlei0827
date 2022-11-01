@@ -62,6 +62,7 @@ pick_n_smallest <- function(data, col_label, n){
 ## Exercise 2: Document your Function
 
 ``` r
+#' Select the n smallest data according to a varible in the table
 #' @details the function is aimed to pick up the first n rows of arranged table based on one of the varible in table
 #' @param data is the data table we will focus on
 #' @param col_label is the varible inside the data we will sort.
@@ -115,38 +116,24 @@ test_that("output the first n rows", {
 })
 ```
 
-    ## Test passed 🎉
+    ## Test passed 🥇
 
 ``` r
 # it checked the length of the two table
 cancer_check <- arrange(cancer_sample, area_mean)
 test_that("output the first n rows", {
-    expect_equal(nrow(pick_n(cancer_sample,col_label = area_mean, 20)[[1]]), 20)
+    expect_equal(nrow(pick_n_smallest(cancer_sample,col_label = area_mean, 20)[[1]]), 20)
 })
 ```
 
-    ## ── Error (<text>:4:5): output the first n rows ─────────────────────────────────
-    ## Error in `pick_n(cancer_sample, col_label = area_mean, 20)`: could not find function "pick_n"
-    ## Backtrace:
-    ##  1. testthat::expect_equal(...)
-    ##  4. base::nrow(pick_n(cancer_sample, col_label = area_mean, 20)[[1]])
-
-    ## Error in `reporter$stop_if_needed()`:
-    ## ! Test failed
+    ## Test passed 🌈
 
 ``` r
 # it checked the function by checking the length of the two table
 
 test_that("output the first n rows", {
-    expect_equal(nrow(pick_n(cancer_sample,col_label = area_mean, 100)[[1]]), 100)
+    expect_equal(nrow(pick_n_smallest(cancer_sample,col_label = area_mean, 100)[[1]]), 100)
 })
 ```
 
-    ## ── Error (<text>:4:5): output the first n rows ─────────────────────────────────
-    ## Error in `pick_n(cancer_sample, col_label = area_mean, 100)`: could not find function "pick_n"
-    ## Backtrace:
-    ##  1. testthat::expect_equal(...)
-    ##  4. base::nrow(pick_n(cancer_sample, col_label = area_mean, 100)[[1]])
-
-    ## Error in `reporter$stop_if_needed()`:
-    ## ! Test failed
+    ## Test passed 😸

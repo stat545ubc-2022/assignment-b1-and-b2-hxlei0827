@@ -64,14 +64,14 @@ test_that("output the first n rows", {
 # it checked the length of the two table
 cancer_check <- arrange(cancer_sample, area_mean)
 test_that("output the first n rows", {
-    expect_equal(nrow(pick_n(cancer_sample,col_label = area_mean, 20)[[1]]), 20)
+    expect_equal(nrow(pick_n_smallest(cancer_sample,col_label = area_mean, 20)[[1]]), 20)
 })
 ```
 ```{r}
 # it checked the function by checking the length of the two table
 
 test_that("output the first n rows", {
-    expect_equal(nrow(pick_n(cancer_sample,col_label = area_mean, 100)[[1]]), 100)
+    expect_equal(nrow(pick_n_smallest(cancer_sample,col_label = area_mean, 100)[[1]]), 100)
 })
 ```
 
