@@ -50,8 +50,8 @@ library(digest)
 ## Exercise 1: Make a Function
 
 ``` r
-pick_n <- function(data,  n){
-  #data <- arrange(varible)
+pick_n_smallest <- function(data, col_label, n){
+  data <- arrange(data, {{col_label}})
   stopifnot(is.numeric(n))
   stopifnot(n <= nrow(data))
   result <- data[0:n,]
@@ -62,8 +62,9 @@ pick_n <- function(data,  n){
 ## Exercise 2: Document your Function
 
 ``` r
-#' @details the function is aimed to pick up the first n rows of the table
+#' @details the function is aimed to pick up the first n rows of arranged table based on one of the varible in table
 #' @param data is the data table we will focus on
+#' @param col_label is the varible inside the data we will sort.
 #' @param n is the number of the rows we will use
 #' @return the new table with n rows
 ```
@@ -71,23 +72,24 @@ pick_n <- function(data,  n){
 ## Exercise 3: Include examples
 
 ``` r
-pick_n(cancer_sample, 100)
+# for example: we would like get the first 100 rows of the data sorted BY radius_mean
+pick_n_smallest(cancer_sample, col_label = radius_mean, 100)
 ```
 
     ## [[1]]
     ## # A tibble: 100 × 32
-    ##          ID diagnosis radius_m…¹ textu…² perim…³ area_…⁴ smoot…⁵ compa…⁶ conca…⁷
-    ##       <dbl> <chr>          <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1   842302 M               18.0    10.4   123.    1001   0.118   0.278   0.300 
-    ##  2   842517 M               20.6    17.8   133.    1326   0.0847  0.0786  0.0869
-    ##  3 84300903 M               19.7    21.2   130     1203   0.110   0.160   0.197 
-    ##  4 84348301 M               11.4    20.4    77.6    386.  0.142   0.284   0.241 
-    ##  5 84358402 M               20.3    14.3   135.    1297   0.100   0.133   0.198 
-    ##  6   843786 M               12.4    15.7    82.6    477.  0.128   0.17    0.158 
-    ##  7   844359 M               18.2    20.0   120.    1040   0.0946  0.109   0.113 
-    ##  8 84458202 M               13.7    20.8    90.2    578.  0.119   0.164   0.0937
-    ##  9   844981 M               13      21.8    87.5    520.  0.127   0.193   0.186 
-    ## 10 84501001 M               12.5    24.0    84.0    476.  0.119   0.240   0.227 
+    ##           ID diagnosis radius_…¹ textu…² perim…³ area_…⁴ smoot…⁵ compa…⁶ conca…⁷
+    ##        <dbl> <chr>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1    862722 B              6.98    13.4    43.8    144.  0.117   0.0757  0     
+    ##  2    921362 B              7.69    25.4    48.3    170.  0.0867  0.120   0.0925
+    ##  3    921092 B              7.73    25.5    48.0    179.  0.0810  0.0488  0     
+    ##  4     92751 B              7.76    24.5    47.9    181   0.0526  0.0436  0     
+    ##  5  85713702 B              8.20    16.8    51.7    202.  0.086   0.0594  0.0159
+    ##  6 871001502 B              8.22    20.7    53.3    204.  0.0940  0.130   0.132 
+    ##  7     91805 B              8.57    13.1    54.5    221.  0.104   0.0763  0.0256
+    ##  8    894047 B              8.60    18.6    54.1    221.  0.107   0.0585  0     
+    ##  9    858981 B              8.60    21.0    54.7    222.  0.124   0.0896  0.03  
+    ## 10    858477 B              8.62    11.8    54.3    224.  0.0975  0.0527  0.0206
     ## # … with 90 more rows, 23 more variables: concave_points_mean <dbl>,
     ## #   symmetry_mean <dbl>, fractal_dimension_mean <dbl>, radius_se <dbl>,
     ## #   texture_se <dbl>, perimeter_se <dbl>, area_se <dbl>, smoothness_se <dbl>,
@@ -98,35 +100,53 @@ pick_n(cancer_sample, 100)
 
 ``` r
 # Since the n is bigger than the number of rows
-pick_n(cancer_sample, 1500000)
+pick_n_smallest(cancer_sample, col_label = texture_mean, 1500000)
 ```
 
-    ## Error in pick_n(cancer_sample, 1500000): n <= nrow(data) is not TRUE
+    ## Error in pick_n_smallest(cancer_sample, col_label = texture_mean, 1500000): n <= nrow(data) is not TRUE
 
 ## Exercise 4: Test
 
 ``` r
 # it checked whether the head of two table are the same
+cancer_check <- arrange(cancer_sample, area_mean)
 test_that("output the first n rows", {
-    expect_equal(head(pick_n(cancer_sample,10)[[1]]), head(cancer_sample[0:10,]))
+    expect_equal(head(pick_n_smallest(cancer_sample, col_label = area_mean, 10)[[1]]), head(cancer_check[0:10,]))
 })
 ```
 
-    ## Test passed 🥇
+    ## Test passed 🎉
 
 ``` r
 # it checked the length of the two table
+cancer_check <- arrange(cancer_sample, area_mean)
 test_that("output the first n rows", {
-    expect_equal(nrow(pick_n(cancer_sample,20)[[1]]), 20)
+    expect_equal(nrow(pick_n(cancer_sample,col_label = area_mean, 20)[[1]]), 20)
 })
 ```
 
-    ## Test passed 🌈
+    ## ── Error (<text>:4:5): output the first n rows ─────────────────────────────────
+    ## Error in `pick_n(cancer_sample, col_label = area_mean, 20)`: could not find function "pick_n"
+    ## Backtrace:
+    ##  1. testthat::expect_equal(...)
+    ##  4. base::nrow(pick_n(cancer_sample, col_label = area_mean, 20)[[1]])
+
+    ## Error in `reporter$stop_if_needed()`:
+    ## ! Test failed
 
 ``` r
+# it checked the function by checking the length of the two table
+
 test_that("output the first n rows", {
-    expect_equal(nrow(pick_n(cancer_sample,100)[[1]]), 100)
+    expect_equal(nrow(pick_n(cancer_sample,col_label = area_mean, 100)[[1]]), 100)
 })
 ```
 
-    ## Test passed 🌈
+    ## ── Error (<text>:4:5): output the first n rows ─────────────────────────────────
+    ## Error in `pick_n(cancer_sample, col_label = area_mean, 100)`: could not find function "pick_n"
+    ## Backtrace:
+    ##  1. testthat::expect_equal(...)
+    ##  4. base::nrow(pick_n(cancer_sample, col_label = area_mean, 100)[[1]])
+
+    ## Error in `reporter$stop_if_needed()`:
+    ## ! Test failed
