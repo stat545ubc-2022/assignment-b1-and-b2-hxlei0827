@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# picknsmallest
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of picknsmallest is to picking up the n smallest value on a given variable
+
+## Installation
+
+You can install the development version of picknsmallest from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("stat545ubc-2022/assignment-b1-and-b2-hxlei0827")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(picknsmallest)
+library(datateachr)
+library(tidyverse)
+library(testthat)
+library(dplyr)
+library(digest)
+pick_n_smallest(cancer_sample, col_label = radius_mean, 100)
+## basic example code
+```
+
